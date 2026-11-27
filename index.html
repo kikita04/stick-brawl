@@ -1,4 +1,4 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>STICK BRAWL v0.5.3</title>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>STICK BRAWL v0.5.4</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#101827;color:#fff;font:15px system-ui;overscroll-behavior:none}#game{height:100dvh;max-width:1100px;margin:auto;display:flex;flex-direction:column;padding:max(6px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));gap:6px;touch-action:none;user-select:none;-webkit-user-select:none}header{display:flex;justify-content:space-between;align-items:center}header b{letter-spacing:2px;font-style:italic}button,select{font:inherit;color:white;background:#293a50;border:1px solid #ffffff25;border-radius:12px;padding:8px;touch-action:none;cursor:pointer}button:active,button.on{background:#526d88;transform:scale(.95)}#view{position:relative;flex:1;min-height:0;display:grid;place-items:center;background:#d9e7ee;border-radius:12px;overflow:hidden}canvas{display:block;width:100%;height:100%;object-fit:contain}#menu{position:absolute;inset:0;background:#0d1728de;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;text-align:center;padding:10px;overflow:auto}#menu h1{font-size:clamp(20px,5vw,35px);margin:0;letter-spacing:2px;font-style:italic}#menu p{font-size:12px;margin:0;color:#c6d4e2}#menu .choices{display:flex;gap:6px}#menu .choice{font-size:12px;min-width:56px}#menu .choice b{display:block;font-size:25px}#menu .selected{border:2px solid #75d5ff;background:#3e5b78}#start{background:#f7cb65;color:#182332;font-weight:900;padding:9px 28px}#hud{display:flex;gap:8px}#hud>div{flex:1;background:#223149;border-radius:9px;padding:5px 12px;display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:11px}#hud strong{font-size:23px;font-style:italic}#controls{display:flex;justify-content:space-between;align-items:center;gap:9px;padding:3px 0}#controls>div{display:flex;gap:8px}#controls button{width:clamp(46px,13vw,80px);height:clamp(48px,13vw,70px);font-weight:800;font-size:11px;box-shadow:0 3px #080c13}#controls b{display:block;font-size:22px;line-height:1.1}#controls .atk{background:#a6444c}#controls .sp{background:#9a702a}#controls .jump{background:#286fa9}#controls .guard{background:#287d72}#controls .on{filter:brightness(1.4)}@media(orientation:landscape){#game{gap:3px}#controls button{height:44px;width:64px}#controls b{font-size:17px}#hud strong{font-size:18px}header button{padding:3px 8px}#menu{gap:5px}#menu .choice b{font-size:20px}}
 
@@ -18,7 +18,7 @@ html,body{touch-action:manipulation;-webkit-text-size-adjust:100%;background:#0b
 @media(max-height:260px) and (orientation:landscape){#stick{width:clamp(76px,40dvh,102px)}}
 </style></head><body>
 <div id="game" class="inmenu"><header><b>STICK BRAWL</b><div class="soundrow"><button id="sound" aria-label="音のオンオフ">♪ ON</button><button id="back">メニュー</button></div></header><div id="view"><canvas id="stage" width="800" height="450"></canvas><div id="menu" data-page="title">
-<section class="page" id="titlepage"><div class="eyebrow">BATTLE ABOVE THE CLOUDS</div><div class="logo">STICK<span>BRAWL</span></div><button class="primary" id="tapstart">TAP TO START</button><div class="version">SKY ARENA / VERSION 0.5.3</div></section>
+<section class="page" id="titlepage"><div class="eyebrow">BATTLE ABOVE THE CLOUDS</div><div class="logo">STICK<span>BRAWL</span></div><button class="primary" id="tapstart">TAP TO START</button><div class="version">SKY ARENA / VERSION 0.5.4</div></section>
 <section class="page" id="modepage" hidden><button class="navback" id="modedback">❮ BACK</button><h2>SELECT MODE</h2><div class="muted">対戦モードを選択</div><div class="modegrid"><button class="modecard" id="cpumode"><span class="modeicon">♟</span><b>CPU BATTLE</b>CPU対戦<small>1人で腕を磨く</small></button><button class="modecard" id="onlinemode"><span class="modeicon">⚔</span><b>ONLINE BATTLE</b>オンライン対戦<small>友達と部屋で対戦</small></button></div></section>
 <section class="page" id="selectpage" hidden><button class="navback" id="selectback">❮ BACK</button><h2>SELECT FIGHTERS</h2><div class="selectgrid"><div class="fighterpanel"><div class="playerlabel">1P</div><div class="preview" id="previewp"></div><div class="fighterinfo" id="charinfo"></div><div class="choices" id="choices"></div></div><div class="vs">VS</div><div class="fighterpanel cpu"><div class="playerlabel">CPU</div><div class="preview" id="previewc"></div><div class="fighterinfo" id="cpuinfo"></div><div class="choices" id="cpuchoices"></div></div></div><div class="selectbottom"><div id="difficultyrow"><label for="difficulty">CPUの強さ</label><select id="difficulty"><option value="0">かんたん</option><option value="1" selected>ふつう</option><option value="2">つよい</option></select></div><button class="primary" id="start">BATTLE START!</button></div></section>
 <section class="page" id="onlinepage" hidden><button class="navback" id="onlineback">❮ BACK</button><h2>ONLINE BATTLE</h2><div class="preview" id="previewonline"></div><div id="onlineinfo"></div><div class="choices" id="onlinechoices"></div><div class="onlinebox"><div id="roomrow"><button class="primary" id="create">部屋を作る</button><button class="primary" id="onlinestart" hidden>対戦開始</button></div><div id="joinrow"><input id="roomcode" type="text" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="6桁の番号" aria-label="部屋番号"><button id="join">部屋に入る</button></div><div id="roomdisplay" hidden></div><div id="netstatus" role="status"></div><div id="netactions" hidden><button id="copyroom">番号コピー</button> <button id="leave">退出</button></div></div></section>
@@ -29,11 +29,17 @@ html,body{touch-action:manipulation;-webkit-text-size-adjust:100%;background:#0b
 // Upper blast zone: room for two wing jumps and aerial recovery.
 const UPPER_KO_Y=-1000, SIDE_KO_MARGIN=140;
 const types=[{name:'丸',symbol:'○',speed:4.0,weight:1,jump:12,power:1,gravity:.52,accent:'#219bff',info:'バランス型｜青い衝撃波'},{name:'四角',symbol:'□',speed:3.1,weight:1.35,jump:10.8,power:1.4,gravity:.58,accent:'#ef433c',info:'パワー型｜赤い強打'},{name:'三角',symbol:'△',speed:5.8,weight:.83,jump:11.5,power:.88,gravity:.54,accent:'#1fcd74',info:'スピード型｜タイヤ突進'},{name:'五角',symbol:'⬠',speed:3.8,weight:.88,jump:13.7,power:.93,gravity:.34,accent:'#ab63f4',info:'空中戦型｜翼と紫の飛行'}];
-const levels=[{reaction:100,jitter:65,guard:0,special:.035,jump:.002,recover:.16,range:48,pace:.55,attempt:.55},{reaction:22,jitter:22,guard:.25,special:.30,jump:.07,recover:.42,range:75},{reaction:10,jitter:10,guard:.55,special:.52,jump:.13,recover:1,range:94}];
+// CPU-only tuning; reaction and recovery intervals are measured in 60 Hz ticks.
+const levels=[
+ {reaction:100,jitter:65,guard:0,special:.035,jump:.002,recover:.16,range:48,pace:.55,attempt:.55,recoverEvery:20,approach:0,guardEvery:120,guardHold:0},
+ {reaction:72,jitter:36,guard:.18,special:.10,jump:.012,recover:.45,range:63,pace:.70,attempt:.72,recoverEvery:12,approach:30,guardEvery:100,guardHold:12},
+ {reaction:46,jitter:24,guard:.30,special:.22,jump:.025,recover:.65,range:72,pace:.85,attempt:.85,recoverEvery:8,approach:20,guardEvery:72,guardHold:16}
+];
 function difficulty(){return levels[Number($('difficulty').value)]||levels[1]}
 const platforms=[{x:150,y:330,w:500},{x:230,y:220,w:130},{x:440,y:220,w:130}];let pick=0,cpuPick=1,page="title",p,c,playing=false,keys={},fx=[],frame=0,wait=0,shake=0,message='',messageTime=0,clock=0;let mode='cpu',peer=null,conn=null,room='',generation=0,remotePick=0,remoteKeys={},remoteJump=0,jumpSeq=0,ready=false,timeout=null,lastRemote=0,netResult=null;
 function fighter(type,x){return {type,x,y:330,color:types[type].accent,vx:0,vy:0,dir:x<400?1:-1,ground:true,jumps:2,recover:false,dmg:0,stock:3,cool:0,anim:0,kind:'',hit:0,inv:0,guard:false,shield:100,drop:0}}
-function reset(){p=fighter(pick,300);c=fighter(mode==='host'?remotePick:cpuPick,500);fx=[];wait=mode==='cpu'&&Number($('difficulty').value)===0?100:0;clock=180*60;shake=0;messageTime=0;clear();hud()}
+let aiInRange=false,aiGuardUntil=0,aiGuardNext=0;
+function reset(){aiInRange=false;aiGuardUntil=0;aiGuardNext=0;p=fighter(pick,300);c=fighter(mode==='host'?remotePick:cpuPick,500);fx=[];wait=mode==='cpu'?difficulty().reaction:0;clock=180*60;shake=0;messageTime=0;clear();hud()}
 function preview(i){const a=types[i],co=a.accent,shape=['<circle cy="-47" r="15"/>','<rect x="-14" y="-61" width="28" height="28" rx="2"/>','<path d="M0 -65 L17 -33 H-17Z"/>','<path d="M0 -65 L16 -53 L10 -33 H-10 L-16 -53Z"/>'][i];return `<svg viewBox="-68 -85 136 104" aria-hidden="true"><g fill="none" stroke="${co}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">${i===3?'<path d="M-3 -31 Q-35 -67 -48 -42 Q-46 -20 -4 -20 M3 -31 Q35 -67 48 -42 Q46 -20 4 -20" fill="#9864e3" stroke-width="2"/>':''}<g fill="#e9f4ff">${shape}</g><path d="M0 -32 V-13 M-19 -18 L0 -29 L23 -20"/>${i===2?'<circle cy="0" r="12" fill="#26394d" stroke="#142034"/><circle cy="0" r="6" stroke="#c5d7df"/><path class="spark" d="M-15 -3 H-52 M-17 7 H-40" stroke-width="3"/>':'<path d="M-12 9 L0 -13 L12 9"/>'}${i===1?'<rect x="-27" y="-26" width="17" height="17" rx="5" fill="#ef433c"/><rect x="16" y="-29" width="21" height="18" rx="6" fill="#ef433c"/><path class="spark" d="M42 -32 L54 -38 M44 -19 H59 M40 -8 L52 0" stroke-width="3"/>':''}${i===0?'<circle class="spark" cx="26" cy="-20" r="12" fill="#219bff77"/><circle cx="26" cy="-20" r="5" fill="#d9f4ff"/>':''}${i===3?'<path class="spark" d="M-23 3 L-28 13 M0 10 V18 M23 3 L28 13" stroke-width="3"/>':''}<path d="M3 -48 V-45 M9 -48 V-45" stroke-width="2"/></g></svg>`}
 function refreshChoices(){for(const [id,i] of [['choices',pick],['cpuchoices',cpuPick],['onlinechoices',pick]])[...$(id).children].forEach((b,j)=>b.classList.toggle('selected',j===i));$('previewp').innerHTML=preview(pick);$('previewc').innerHTML=preview(cpuPick);$('previewonline').innerHTML=preview(pick);$('charinfo').textContent=types[pick].info;$('cpuinfo').textContent=types[cpuPick].info;$('onlineinfo').textContent=types[pick].info}
 function choose(i,cpu=false){if(cpu)cpuPick=i;else pick=i;refreshChoices();if(!playing&&mode==='cpu')reset();if(mode==='guest'&&ready)send({kind:'pick',pick})}
@@ -88,23 +94,27 @@ function ko(f){sfx("ko");f.stock--;burst(Math.max(10,Math.min(790,f.x)),Math.max
 function physics(f,move,guard){if(f.drop>0)f.drop--;if(f.inv)f.inv--;if(f.cool)f.cool--;if(f.anim)f.anim--;if(f.hit)f.hit=Math.max(0,f.hit-1);f.guard=guard&&f.ground&&!f.hit&&!f.anim&&f.shield>0;f.shield=Math.max(0,Math.min(100,f.shield+(f.guard?-.48:.55)));if(!f.hit&&!f.guard){if(move){f.dir=Math.sign(move);f.vx+=(move*types[f.type].speed-f.vx)*.23}else f.vx*=f.ground?.72:.97}else f.vx*=f.guard?.65:.99;let old=f.y;f.vy=Math.min(f.type===3?8.5:11.5,f.vy+types[f.type].gravity*.88);f.x+=f.vx;f.y+=f.vy;f.ground=false;if(f.vy>=0)for(const a of platforms){if(!(f.drop>0&&a.y<platforms[0].y)&&old<=a.y+1&&f.y>=a.y&&f.x>=a.x&&f.x<=a.x+a.w){f.y=a.y;f.vy=0;f.ground=true;f.jumps=2;f.recover=false;break}}if(frame%3===0&&!f.hit){if(f.type===2&&f.ground&&Math.abs(f.vx)>3){fx.push({x:f.x-f.dir*12,y:f.y-5,vx:-f.dir*(3+Math.random()*3),vy:-Math.random()*2,life:15,color:types[2].accent});}if(f.type===3&&!f.ground){fx.push({x:f.x+(Math.random()-.5)*36,y:f.y-23,vx:(Math.random()-.5)*2,vy:2,life:18,color:types[3].accent});}}if(f.x<-SIDE_KO_MARGIN||f.x>W+SIDE_KO_MARGIN||f.y>535||f.y<UPPER_KO_Y)ko(f)}
 function ai(){
  const a=difficulty(),easy=Number($('difficulty').value)===0;let dx=p.x-c.x,dy=p.y-c.y,m=0,guard=false;wait--;
- // If the opponent is below, intentionally pass through the upper platform.
+ // Keep the upper-platform drop-through fix.
  const upper=platforms.slice(1).find(q=>c.ground&&Math.abs(c.y-q.y)<1&&c.x>=q.x&&c.x<=q.x+q.w);
- if(upper&&dy>55&&!c.hit){c.drop=22;c.ground=false;c.y+=2;c.vy=Math.max(1.5,c.vy);c.guard=false;}
+ if(upper&&dy>55&&!c.hit){c.drop=22;c.ground=false;c.y+=2;c.vy=Math.max(1.5,c.vy);c.guard=false;aiGuardUntil=0;}
  if(c.x<155||c.x>645||c.y>345){
-  m=c.x<400?1:-1;
-  // Easy recovery is a periodic decision, not a near-certain per-frame retry.
-  if(c.vy>1&&!c.hit&&(!easy||frame%20===0)&&Math.random()<a.recover){if(c.jumps)jump(c);else if(!c.recover){c.dir=m;attack(c,p,true)}}
+  aiInRange=false;aiGuardUntil=0;m=c.x<400?1:-1;
+  if(c.vy>1&&!c.hit&&frame%a.recoverEvery===0&&Math.random()<a.recover){if(c.jumps)jump(c);else if(!c.recover){c.dir=m;attack(c,p,true)}}
  }else{
   m=Math.abs(dx)>(easy?32:43)?Math.sign(dx):0;
   if(dy<-55&&c.vy>=0&&!c.drop&&Math.random()<a.jump)jump(c);
-  if(Math.abs(dx)<a.range&&Math.abs(dy)<50&&!c.hit){
+  const inRange=Math.abs(dx)<a.range&&Math.abs(dy)<50;
+  if(inRange&&!aiInRange&&!easy)wait=Math.max(wait,a.approach);
+  aiInRange=inRange;
+  if(inRange&&!c.hit){
    c.dir=dx<0?-1:1;
-   if(p.anim>0&&c.ground&&Math.random()<a.guard){guard=true;m=0}
-   else if(wait<=0&&!c.cool){if(!easy||Math.random()<a.attempt)attack(c,p,Math.random()<a.special);wait=a.reaction+Math.random()*a.jitter}
-  }
+   // Only one guard decision per interval, not dozens of rolls per second.
+   if(!easy&&p.anim>0&&c.ground&&!c.anim&&c.shield>0&&frame>=aiGuardNext){aiGuardNext=frame+a.guardEvery;if(Math.random()<a.guard)aiGuardUntil=frame+a.guardHold;}
+   if(frame<aiGuardUntil&&c.ground){guard=true;m=0}
+   else if(wait<=0&&!c.cool&&!c.guard){if(Math.random()<a.attempt)attack(c,p,Math.random()<a.special);wait=a.reaction+Math.random()*a.jitter}
+  }else aiGuardUntil=0;
  }
- return [m*(easy?a.pace:1),guard];
+ return [m*a.pace,guard];
 }
 function hud(){for(const [f,k] of [[p,'p'],[c,'c']]){$(k+'n').textContent=(k==='p'?'1P ':mode==='cpu'?'CPU ':'2P ')+types[f.type].name;$(k+'n').style.color=f.color;$(k+'n').parentElement.style.setProperty('--fighter',f.color);$(k+'d').textContent=f.dmg+'%';$(k+'d').style.color=f.dmg>=100?'#ff735f':f.dmg>=50?'#ffd27a':'white';$(k+'s').textContent='●'.repeat(Math.max(0,f.stock))+'○'.repeat(3-Math.max(0,f.stock))}}
 function line(x,y,u,v){g.beginPath();g.moveTo(x,y);g.lineTo(u,v);g.stroke()}
